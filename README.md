@@ -65,7 +65,7 @@ Our projects are community-built and welcome collaboration. 👍 Be sure to see 
 Become a <b>Meshtee</b> today!</p>
 
 Find out more on the <a href="https://layer5.io/community">Layer5 community</a>. <br />
-<br /><br /><br /><br />
+<br /><br />
 </p>
 
 <div>&nbsp;</div>
@@ -77,7 +77,6 @@ Find out more on the <a href="https://layer5.io/community">Layer5 community</a>.
   <img alt="Slack logo" src=".github/readme/images//slack-128.png" width="110px" align="right" style="margin-left:10px;padding-top:13px;">
 </picture>
 </a>
-
 
 <a href="https://meshery.io/community"><img alt="Layer5 Community" src=".github/readme/images//community.svg" style="margin-right:8px;padding-top:5px;" width="140px" align="left" /></a>
 
