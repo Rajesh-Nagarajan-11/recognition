@@ -12,36 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include .github/build/Makefile.show-help.mk
+include install/Makefile.show-help.mk
 
-## Install docs.layer5.io dependencies on your local machine.
-## See https://gohugo.io/categories/installation
+## Install site dependencies
 setup:
 	npm install
 
-## Run docs.layer5.io on your local machine with draft and future content enabled.
-site: check-go
-	hugo server -D -F
-	
-## Run docs.layer5.io on your local machine. Alternate method.
-site-fast:
-	gatsby develop
+## Build and run site in development environment
+site-dev:
+	npm run start; cd ..
 
-## Build docs.layer5.io on your local machine.
+## Build site; generate static site
 build:
-	hugo
+	npm run build
 
-## Empty build cache and run docs.layer5.io on your local machine.
+## Build and run site
+site:
+	npm start; cd ..
+
+## Empty build cache and run layer5.io on your local machine.
 clean: 
-	hugo --cleanDestinationDir
-	make site
+	gatsby clean; make site
 
-.PHONY: setup build site clean site-fast check-go
+#-----------------------------------------------------------------------------
+# Docker-based Builds
+#-----------------------------------------------------------------------------
 
-check-go:
-	@echo "Checking if Go is installed..."
-	@command -v go > /dev/null || (echo "Go is not installed. Please install it before proceeding."; exit 1)
-	@echo "Go is installed."
+# ## Build and run site in a container
+# docker:
+# 	docker run --name site -d --rm -p 4000:4000 -v `pwd`:"/srv/jekyll" jekyll/jekyll:4.0.0 bash -c "bundle install; jekyll serve --drafts --livereload"
 
-docker:
-	docker compose watch
+.PHONY: setup-libs site-setup build docker site setup
