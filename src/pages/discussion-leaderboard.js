@@ -34,6 +34,7 @@ const LeaderBoard = () => {
     [leaderBoard]
   );
 
+  
   const Logo =
     theme === 'light' ? layer5LeaderboardLightMode : layer5LeaderboardDarkMode;
   return (
