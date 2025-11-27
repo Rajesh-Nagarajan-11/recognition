@@ -44,20 +44,20 @@ jobs:
   preview:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
         
       - name: Download pre-built site
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/download-artifact@v4
         with:
           name: public-dir
           path: .
 
       - name: Extract site
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: |
           unzip -q public-dir.zip
           # Ensure the extracted folder has the static files in a 'public' dir for the action
@@ -68,13 +68,13 @@ jobs:
           fi
 
       - name: Deploy Preview
-        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
 
       - name: Remove Preview on Close
-        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
