@@ -45,6 +45,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
@@ -72,6 +75,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1.6.3
         with:
           source-dir: public
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove Preview on Close
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -79,3 +83,4 @@ jobs:
         with:
           source-dir: public
           remove: true
+          token: ${{ secrets.GITHUB_TOKEN }}
